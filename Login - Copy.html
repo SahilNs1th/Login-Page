@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+    body{
+background-image: url(https://mcdn.wallpapersafari.com/medium/81/18/WewaSt.jpg);
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: antiquewhite;
+  }
+
+  .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+</style>
+  
+</head>
+<body>
+
+<div id="loginForm" style="display: block;">
+  <h2>Login</h2>
+  <form id="login" onsubmit="return login()">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<div id="userInfo" style="display: none;">
+  <h2>User Information</h2>
+  <form id="userForm" onsubmit="return addUser()">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username" placeholder="Enter username" required><br>
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age" placeholder="Enter age" required><br>
+    <label for="phoneNumber">Phone Number:</label><br>
+    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number" required><br><br>
+    <button type="submit">Add User</button>
+  </form>
+  
+  <table id="userTable">
+    <tr>
+      <th>Username</th>
+      <th>Age</th>
+      <th>Phone Number</th>
+      <th>Action</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+  function login() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    // Here you can add your authentication logic
+    // For simplicity, I'm just checking if email and password are not empty
+    if (email !== "" && password !== "") {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("userInfo").style.display = "block";
+      return false; // prevent form submission
+    } else {
+      alert("Please enter valid email and password.");
+      return false; // prevent form submission
+    }
+  }
+
+  function addUser() {
+    var username = document.getElementById("username").value;
+    var age = document.getElementById("age").value;
+    var phoneNumber = document.getElementById("phoneNumber").value;
+
+    var table = document.getElementById("userTable");
+    var row = table.insertRow();
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+
+    cell1.innerHTML = username;
+    cell2.innerHTML = age;
+    cell3.innerHTML = phoneNumber;
+    cell4.innerHTML = "<button onclick='deleteRow(this)'>Delete</button>";
+
+    document.getElementById("username").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("phoneNumber").value = "";
+
+    return false; // prevent form submission
+  }
+
+  function deleteRow(row) {
+    var rowIndex = row.parentNode.parentNode.rowIndex;
+    document.getElementById("userTable").deleteRow(rowIndex);
+  }
+</script>
+
+</body>
+</html>
